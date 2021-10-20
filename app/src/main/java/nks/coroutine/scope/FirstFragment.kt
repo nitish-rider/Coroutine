@@ -19,7 +19,7 @@ class FirstFragment : Fragment() {
         // Inflate the layout for this fragment
         val view=inflater.inflate(R.layout.fragment_first, container, false)
 
-        GlobalScope.launch { //launch returns a job object
+        GlobalScope.launch { //GlobalScope Does not destroy with fragment so lasts till app is running leading to data leak
             while (true){
                 delay(1000L)
                 Log.d("Coroutines","Running...")
