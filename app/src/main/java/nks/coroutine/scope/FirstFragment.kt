@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.*
 
@@ -19,9 +20,11 @@ class FirstFragment : Fragment() {
         // Inflate the layout for this fragment
         val view=inflater.inflate(R.layout.fragment_first, container, false)
 
-        val job = GlobalScope.launch { //launch returns a job object
-            delay(1000L)
-            Log.d("Coroutines","Running...")
+        lifecycleScope.launch { //lifecycleScope will destroy as soon as fragment destroys
+            while (true){
+                delay(1000L)
+                Log.d("Coroutines","Running...")
+            }
         }
 
         view.findViewById<TextView>(R.id.first_text).setOnClickListener {
