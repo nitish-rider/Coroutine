@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 
 class FirstFragment : Fragment() {
     val scope= CoroutineScope(CoroutineName("MyScope"))//if ve do not define dispatcher it will take DefaultDispatcher
-    private val scopeD= CoroutineScope(Dispatchers.IO + CoroutineName("Dispatcher Scope")) //Dispatcher are added with + not ,
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +31,7 @@ class FirstFragment : Fragment() {
             }
         }
 
-        scopeD.launch {
-            Log.d("Coroutines",this.coroutineContext.toString())
-        }
+
 
         view.findViewById<TextView>(R.id.first_text).setOnClickListener {
             findNavController().navigate(R.id.action_firstFragment_to_secondFragment)
