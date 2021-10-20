@@ -20,12 +20,13 @@ class FirstFragment : Fragment() {
         // Inflate the layout for this fragment
         val view=inflater.inflate(R.layout.fragment_first, container, false)
 
-        lifecycleScope.launch { //lifecycleScope will destroy as soon as fragment destroys
+        lifecycleScope.launch { //lifecycleScope will destroy as soon as fragment destroys while viewModelScope cancel when onClear method is called
             while (true){
                 delay(1000L)
                 Log.d("Coroutines","Running...")
             }
         }
+
 
         view.findViewById<TextView>(R.id.first_text).setOnClickListener {
             findNavController().navigate(R.id.action_firstFragment_to_secondFragment)
