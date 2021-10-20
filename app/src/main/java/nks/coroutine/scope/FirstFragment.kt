@@ -8,16 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class FirstFragment : Fragment() {
-    val scope= CoroutineScope(CoroutineName("MyScope"))//if ve do not define dispatcher it will take DefaultDispatcher
-    private val scopeD= CoroutineScope(Dispatchers.IO + CoroutineName("Dispatcher Scope")) //Dispatcher are added with + not ,
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,15 +19,9 @@ class FirstFragment : Fragment() {
         // Inflate the layout for this fragment
         val view=inflater.inflate(R.layout.fragment_first, container, false)
 
-        val job = scope.launch { //launch returns a job object
-            Log.d("Coroutines",this.coroutineContext.toString())
-            launch {                 //nested scope
-                Log.d("Coroutines",this.coroutineContext.toString())
-            }
-        }
-
-        scopeD.launch {
-            Log.d("Coroutines",this.coroutineContext.toString())
+        val job = GlobalScope.launch { //launch returns a job object
+            delay(1000L)
+            Log.d("Coroutines","Running...")
         }
 
         view.findViewById<TextView>(R.id.first_text).setOnClickListener {
@@ -42,4 +30,23 @@ class FirstFragment : Fragment() {
         return view;
     }
 
+    override fun onPause() {
+        Log.d("Coroutines","onPause")
+        super.onPause()
+    }
+
+    override fun onResume() {
+        Log.d("Coroutines","onResume")
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        Log.d("Coroutines","onDestroy")
+        super.onDestroy()
+    }
+
+    override fun onStop() {
+        Log.d("Coroutines","onStop")
+        super.onStop()
+    }
 }
